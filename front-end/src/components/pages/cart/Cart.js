@@ -5,12 +5,10 @@ const Sidebar = ({ close }) => {
   return (
     <aside className="sidebar">
       <div onClick={() => close()}>
-      <IoMdCloseCircle color="#000" size={20} />
-
+        <IoMdCloseCircle color="#000" size={20} />
       </div>
-< ActionAreaCard />
-
-  </aside>
+      <ActionAreaCard />
+    </aside>
   );
 };
 

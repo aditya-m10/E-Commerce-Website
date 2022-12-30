@@ -71,7 +71,9 @@ const Authlogin=()=>{
         </Dialog>
         {serverError.non_field_errors ? <Alert severity='error'>{serverError.non_field_errors[0]}</Alert> : ''}
         <Box >
-        <Button type="submit" style={{ borderRadius: 25,fontSize: 12 }} variant="contained" color="primary"  sx={{mt: 2 ,color: "white" }} >Login</Button><br /><br />
+        <Button type="submit" style={{ borderRadius: 25,fontSize: 12 }} variant="contained" color="primary"  sx={{mt: 2 ,color: "white" }} >
+          Login
+        </Button><br /><br />
                 
        
         </Box>
