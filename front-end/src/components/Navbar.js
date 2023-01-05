@@ -23,9 +23,6 @@ const Navbar = () => {
   const { access_token } = getToken();
   const [toggle, setToggle] = useState(false);
 
-  const handleToggle = () => {
-    setToggle((pre) => !pre);
-  };
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -89,7 +86,7 @@ const Navbar = () => {
                 </Button>
               )}
               <IconButton
-                onClick={handleToggle}
+                onClick={()=>setToggle(!toggle)}
                 sx={{ color: "green", textTransform: "none" }}
                 aria-label="cart"
               >

@@ -1,19 +1,98 @@
 .sidebar {
     width: 35vw;
-    height: 100vh;
+    height:100vh;
     top: 0;
     right: 0;
     bottom: 0;
-    display: grid;
     place-items: center;
-    position: absolute;
+    position: fixed;
     z-index:9999;
     background-color:whitesmoke;
+
   }
-  
-  .sidebar div {
+  .clear {
+  margin: 10px 220px;
+  background-color: rgb(227, 127, 127);
+  border-color: rgb(227, 127, 127) ;
+  padding: 5px 12px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+
+  }
+.clear:hover {
+    background: #f70303;
+  }
+.sidebar div {
     cursor: pointer;
     position: absolute;
     left: 1em;
     top: 1em;
   }
+
+.cart-wrapper {
+    position: fixed;
+    margin-left: 30px;
+    width: 450px;
+    height: 15vh;
+    background: #fff;
+    margin-top: 35px;
+    margin-left: 30px;
+  
+  }
+.image-wrapper img {
+    height: 90px;
+    margin-top: -15px;
+    border: 1px solid #f6f6f6;
+
+  }
+.text-wrapper{
+  font-size: 20px;
+  font-weight:bold;
+  margin-top: -5px;
+  margin-left: 100px;
+}
+.remove {
+  float: right;
+  margin-right: 20px;
+  margin-top: 30px;
+
+  background-color: rgb(227, 127, 127);
+  border-color: rgb(227, 127, 127) ;
+  padding: 5px 12px;
+  color: #fff;
+  border:none;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+
+}
+.remove:hover {
+  background: #f70303;
+}
+.inc-dec {
+  position:absolute;
+  margin-left: 230px;
+  margin-top: 15px;
+  font-weight: bolder;
+}
+.inc-dec button{
+  background-color: rgb(227, 127, 127);
+  border-color: rgb(227, 127, 127) ;
+  padding: 5px 12px;
+  color: #fff;
+  border:none;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  font-weight: bolder;
+}
+.inc-dec button:hover {
+  background: #9e3d3d;
+}
+.price-wrapper{
+  margin-left: 105px;
+  margin-top: 30px;
+}

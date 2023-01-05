@@ -1,4 +1,5 @@
 import React from "react";
+import products from "../../../data/Data";
 import {
   Button,
   Card,
@@ -8,21 +9,21 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { faker } from "@faker-js/faker";
-import { useNavigate } from "react-router-dom";
+// import { faker } from "@faker-js/faker";
+import { useDispatch } from 'react-redux';
+import {addToCart} from '../../../features/cartSlice';
 
-const products = [...Array(20)].map(() => ({
-  id: faker.datatype.uuid(),
-  name: faker.commerce.productName(),
-  price: faker.commerce.price(),
-  image: faker.image.technics(),
-}));
+// const products = [...Array(20)].map(() => ({
+//   id: faker.datatype.uuid(),
+//   name: faker.commerce.productName(),
+//   price: faker.commerce.price(),
+//   image: faker.image.technics(),
+// }));
 
 const Products = () => {
-  const navigate = useNavigate();
-  const handleClick = () => {
-    navigate("/reslogin");
-  };
+  const dispatch = useDispatch()
+
+  
   return (
     <>
       <Box justifyContent="center" sx={{ mx: 3, px: 5, py: 2 }}>
@@ -35,24 +36,22 @@ const Products = () => {
             <Card
               style={{ backgroundColor: "#EEF2E6" }}
               key={id}
-              sx={{ width: 320, mx: 2, my: 2 }}
+              sx={{ width: 300, mx: 2, my: 2 }}
             >
               <img
-                onClick={handleClick}
-                alt={product.name}
-                height="200"
-                width="320"
-                src={product.image}
+                alt={product.title}
+                height="300"
+                width="auto"
+                src={product.cover}
               />
 
               <CardContent>
                 <Typography
-                  onClick={handleClick}
                   gutterBottom
                   variant="body1"
                   component="div"
                 >
-                  {product.name}
+                  {product.title}
                 </Typography>
 
                 <Typography variant="body2" color="text.secondary">
@@ -60,7 +59,10 @@ const Products = () => {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small" variant="contained">
+                <Button onClick={() => 
+    dispatch(addToCart(
+      product
+    )) }size="small" variant="contained">
                   Add to cart
                 </Button>
                 <Button size="small" variant="contained">
