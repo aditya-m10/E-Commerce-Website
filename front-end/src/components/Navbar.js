@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { AppBar, Box, Toolbar, Typography, Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
@@ -10,6 +10,9 @@ import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { useDispatch, useSelector } from "react-redux";
+import { cartTotalSelector } from "../features/selectors";
+
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -22,15 +25,28 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 const Navbar = () => {
   const { access_token } = getToken();
   const [toggle, setToggle] = useState(false);
+  const total = useSelector(cartTotalSelector);
+  const dispatch = useDispatch();
+  const [change, setChange] = useState(false);
+
+  useEffect(() => {
+    if (total !== 0) {
+      setChange(true);
+
+      setTimeout(() => {
+        setChange(false);
+      }, 1000);
+    }
+  }, [total]);
 
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1 }} >
           <AppBar
-            style={{ background: "transparent" }}
+            style={{ backgroundColor: "#fff" }}
             sx={{ boxShadow: 3 }}
-            position="static"
+            position= "fixed"
             color="primary"
           >
             <Toolbar variant="dense">
@@ -90,7 +106,7 @@ const Navbar = () => {
                 sx={{ color: "green", textTransform: "none" }}
                 aria-label="cart"
               >
-                <StyledBadge badgeContent={4} color="secondary">
+                <StyledBadge change={change} badgeContent={total} color="secondary">
                   <ShoppingCartIcon />
                 </StyledBadge>
               </IconButton>

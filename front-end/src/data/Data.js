@@ -41,28 +41,28 @@ const products = [
         "https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1584930592.91415090.jpg",
       price: 3499,
     },{
-        id: 4,
+        id: 7,
         title: "samsung",
         cover:
           "https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/597dc0f15e44d85928711966d540ed71.jpg",
         price: 70000,
       },
       {
-        id: 5,
+        id: 8,
         title: "RedmiBook 16",
         cover:
           "https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1594107583.22838030.jpg",
         price: 8000,
       },
       {
-        id: 6,
+        id: 9,
         title: "Redmi",
         cover:
           "https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1584930592.91415090.jpg",
         price: 4000,
       },
       {
-        id: 6,
+        id: 10,
         title: "Redmi",
         cover:
           "https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1584930592.91415090.jpg",
