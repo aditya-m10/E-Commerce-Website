@@ -1,11 +1,10 @@
 import { IoMdCloseCircle } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
-import { increment, decrement, clear } from "../../../features/cartSlice";
+import { increment, decrement, clear,removeItem } from "../../../features/cartSlice";
 import { cartTotalPriceSelector } from "../../../features/selectors";
 
 const Sidebar = ({ close }) => {
   const cart = useSelector((state) => state.cart);
-  console.log(cart);
   const dispatch = useDispatch();
   const totalPrice = useSelector(cartTotalPriceSelector);
 
@@ -14,19 +13,27 @@ const Sidebar = ({ close }) => {
       <div className="cross" onClick={() => close()}>
         <IoMdCloseCircle color="#000" size={20} />
       </div>
-      {cart.length > 0 ? (
+      {cart.length > 0 ? (<>
+      <button
+      className="clear"
+      onClick={() => {
+        dispatch(clear());
+      }}
+    >
+      Clear Cart
+    </button>
         <button
-          className="clear"
-          onClick={() => {
-            dispatch(clear());
-          }}
+          className="buy"
         >
-          clear cart
-        </button>
+          Buy  
+        </button></>
       ) : (
-        <h3>Hurry Now!! Fill Your cart</h3>
+        <div className="hurry">
+               Hurry Now !! 
+              Fill Your Cart
+        </div>
       )}
-
+      <div className="cart">
       {cart.map((item) => (
         <div key={item.id} className="cart-wrapper">
           <div className="image-wrapper ">
@@ -53,15 +60,18 @@ const Sidebar = ({ close }) => {
                 dispatch(decrement(item.id));
               }}
             >
-              -
+              - 
             </button>
           </div>
-          <button className="remove">Remove</button>
+          <button onClick={() => {
+                dispatch(removeItem(item.id));
+              } }className="remove">Remove</button>
         </div>
       ))}
+      </div>
       <div className="total">
       
-      {totalPrice > 0 && <><hr /> <h1 > <a>Total</a> Rs. {totalPrice}</h1></>}
+      {totalPrice > 0 && <><hr /> <h1 > <a>Total</a> Rs. {totalPrice}</h1><hr /></>}
       </div>
     </div>
   );

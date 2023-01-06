@@ -9,16 +9,10 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-// import { faker } from "@faker-js/faker";
 import { useDispatch } from 'react-redux';
 import {addToCart} from '../../../features/cartSlice';
 
-// const products = [...Array(20)].map(() => ({
-//   id: faker.datatype.uuid(),
-//   name: faker.commerce.productName(),
-//   price: faker.commerce.price(),
-//   image: faker.image.technics(),
-// }));
+
 
 const Products = () => {
   const dispatch = useDispatch()
@@ -32,10 +26,10 @@ const Products = () => {
           spacing={{ border: 1, xs: 2, md: 3 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
-          {products.map((product, id) => (
+          {products.map((product) => (
             <Card
               style={{ backgroundColor: "#EEF2E6" }}
-              key={id}
+              key={product.id}
               sx={{ width: 300, mx: 2, my: 2 }}
             >
               <img

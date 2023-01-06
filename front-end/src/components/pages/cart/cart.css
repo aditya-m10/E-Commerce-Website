@@ -1,5 +1,5 @@
 .sidebar {
-  width: 35vw;
+  width: 30vw;
   height: 98vh;
   top: 0;
   right: 0;
@@ -8,8 +8,25 @@
   overflow: auto;
   background-color: whitesmoke;
 }
+.buy{
+  margin: 10px ;
+  width: 80px;
+  float: right;
+  background-color: rgb(26, 170, 10);
+  padding: 5px 12px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+}
+.buy:hover {
+  background: #254f02;
+
+}
 .clear {
-  margin: 10px 220px;
+  margin: 10px ;
+  float: right;
   background-color: rgb(227, 127, 127);
   border-color: rgb(227, 127, 127);
   padding: 5px 12px;
@@ -21,6 +38,7 @@
 }
 .clear:hover {
   background: #f70303;
+
 }
 .cross {
   cursor: pointer;
@@ -29,7 +47,7 @@
   top: 1em;
 }
 .total {
-  bottom: 10%;
+  top: 5%;
   text-align: center;
   width: 100%;
   height: 30px;
@@ -40,12 +58,25 @@
   height: 50px;
   background-color: #29e571;
 }
+.hurry{
+  margin-top: 50%;
+  text-align: center;
+  color: #022c12;
+  font-weight: bolder;
+  font-size:xx-large;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.cart {
+  margin-top: 150px;
+}
 .cart-wrapper {
-  margin-left: 30px;
+  
+  margin-left: 10px;
   width: 450px;
   height: 15vh;
   background: #fff;
-  margin-left: 30px;
+  padding: 5px 5px 5px 5px;
+  border-radius: 10px;
 }
 .image-wrapper img {
   height: 90px;

@@ -47,11 +47,13 @@ const cartSlice = createSlice({
     },
     clear(state) {
       return [];
-    }
-    // removeItem: (state, action) => {
-    //   const removeItem = state.cart.filter((item) => item.id !== action.payload);
-    //   state.cart = removeItem;
-    // },
+    },
+    removeItem: (state, action ) => {
+      const removeItem = state.filter((item) => item.id !== action.payload);
+      state= removeItem;
+      return state
+
+    },
   },
 });
 
@@ -60,6 +62,6 @@ export const {
   addToCart,
   increment,
   decrement,
-  clear
-    // removeItem,
+  clear,
+  removeItem,
 } = cartSlice.actions;
