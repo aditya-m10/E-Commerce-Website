@@ -1,5 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
-const initialState = [];
+import { createSlice } from "@reduxjs/toolkit";
+const cartState =
+  localStorage.getItem("item") !== null
+    ? JSON.parse(localStorage.getItem("item"))
+    : [];
+
+const initialState = cartState;
 
 const cartSlice = createSlice({
   name: "cart",
@@ -14,54 +19,59 @@ const cartSlice = createSlice({
           item.id === id
             ? {
                 ...item,
-                quantity: item.quantity + 1
+                quantity: item.quantity + 1,
               }
             : item
         );
       } else {
         state.push({
           ...payload,
-          quantity: 1
+          quantity: 1,
         });
       }
+      localStorage.setItem("item", JSON.stringify(state));
     },
     increment(state, { payload }) {
-      return state.map((item) =>
+      const Increment = state.map((item) =>
         item.id === payload
           ? {
               ...item,
-              quantity: item.quantity + 1
+              quantity: item.quantity + 1,
             }
           : item
       );
+      state = Increment;
+      localStorage.setItem("item", JSON.stringify(state));
+      return state;
     },
     decrement(state, { payload }) {
-      return state.map((item) =>
+      const Decrement = state.map((item) =>
         item.id === payload
           ? {
               ...item,
-              quantity: item.quantity - 1
+              quantity: item.quantity - 1,
             }
           : item
       );
+      state = Decrement;
+      localStorage.setItem("item", JSON.stringify(state));
+      return state;
     },
     clear(state) {
-      return [];
+      state=[]
+      localStorage.setItem("item", JSON.stringify(state));
+      return state;
     },
-    removeItem: (state, action ) => {
+    removeItem: (state, action) => {
       const removeItem = state.filter((item) => item.id !== action.payload);
-      state= removeItem;
-      return state
+      state = removeItem;
+      localStorage.setItem("item", JSON.stringify(state));
 
+      return state;
     },
   },
 });
 
 export const cartReducer = cartSlice.reducer;
-export const {
-  addToCart,
-  increment,
-  decrement,
-  clear,
-  removeItem,
-} = cartSlice.actions;
+export const { addToCart, increment, decrement, clear, removeItem } =
+  cartSlice.actions;
