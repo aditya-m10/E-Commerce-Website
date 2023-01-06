@@ -13,7 +13,7 @@ const Sidebar = ({ close }) => {
       <div className="cross" onClick={() => close()}>
         <IoMdCloseCircle color="#000" size={20} />
       </div>
-      {cart.length > 0 ? (<>
+      {cart.length > 0 ? (<div className="footerCart">
       <button
       className="clear"
       onClick={() => {
@@ -26,7 +26,7 @@ const Sidebar = ({ close }) => {
           className="buy"
         >
           Buy  
-        </button></>
+        </button></div>
       ) : (
         <div className="hurry">
                Hurry Now !! 
@@ -53,7 +53,7 @@ const Sidebar = ({ close }) => {
             >
               +
             </button>
-            {item.quantity}
+            <button style={{backgroundColor: "white", color:"black"}}>{item.quantity}</button>
             <button
               disabled={item.quantity === 1}
               onClick={() => {
@@ -71,7 +71,7 @@ const Sidebar = ({ close }) => {
       </div>
       <div className="total">
       
-      {totalPrice > 0 && <><hr /> <h1 > <a>Total</a> Rs. {totalPrice}</h1><hr /></>}
+      {totalPrice > 0 && <h1 > <a>Total</a> Rs. {totalPrice}</h1>}
       </div>
     </div>
   );
