@@ -47,7 +47,7 @@ const Sidebar = ({ close }) => {
           <button className="remove">Remove</button>
 
         </div>
-      ))}
+))}
       
     </div>
   );
