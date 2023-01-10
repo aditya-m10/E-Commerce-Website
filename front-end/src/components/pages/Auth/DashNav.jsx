@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 import { useGetDataUserQuery } from '../../../services/Authenticationapi';
 
 
-const ResponsiveAppBar = () => { 
+const DashNav = () => { 
   const dispatch = useDispatch()
   const { access_token } = getToken()
   const navigate=useNavigate();
@@ -21,7 +21,7 @@ const ResponsiveAppBar = () => {
     dispatch(unSetUserToken({ access_token: null }))
     removeToken()
    
-    navigate("/reslogin")
+    navigate("/checkout")
   
     
   }
@@ -55,21 +55,25 @@ const ResponsiveAppBar = () => {
     <ThemeProvider theme={theme}>
 
     <Box sx={{flexGrow:1}}>
-    <AppBar style={{ background: 'transparent', boxShadow: 'none'}} position='static' color="primary" >
+    <AppBar style={{ backgroundColor: 'white', boxShadow: 3}} position='static' color="primary" >
         <Toolbar variant="dense"  >
             <Typography variant='h5'sx={{color:"green",flexGrow:1,fontWeight: 'bold'}}  >
                 AADINAATH<span style={{fontSize:12}} > Sales</span>
             </Typography>
+            {access_token?
+            <>
             <Typography variant='h3'style={{fontSize:14}} sx={{mr: 2,color:"green",fontWeight: 'bold'}}  >
             Welcome, {userData.name}
             </Typography>
             
-            <Button   onClick={handleLogout}variant="contained" style={{color:"white",  fontSize: 12,borderRadius: 25}}>
+            <Button   onClick={handleLogout}variant="contained" style={{color:"white",  fontSize: 12,borderRadius: 5}}>
               LogOut
               </Button>
               <Box sx={{mx:2 }} >
             <Link  component={NavLink} to="/reset" style={{fontSize: 14}}  underline="hover">Change password </Link>
-            </Box>
+            </Box></> : <Button   onClick={()=>navigate("/reslogin")}variant="contained" style={{color:"white",  fontSize: 12,borderRadius: 5}}>
+              Login
+              </Button>}
 
         </Toolbar>
     </AppBar>
@@ -81,4 +85,4 @@ const ResponsiveAppBar = () => {
     </>
   );
 };
-export default ResponsiveAppBar;
+export default DashNav;

@@ -1,12 +1,16 @@
 import { IoMdCloseCircle } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
+import {  Navigate } from "react-router-dom";
 import { increment, decrement, clear,removeItem } from "../../../features/cartSlice";
 import { cartTotalPriceSelector } from "../../../features/selectors";
+import {   useNavigate } from 'react-router-dom';
+
 
 const Sidebar = ({ close }) => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const totalPrice = useSelector(cartTotalPriceSelector);
+  const navigate=useNavigate()
 
   return (
     <div className="sidebar">
@@ -23,9 +27,9 @@ const Sidebar = ({ close }) => {
       Clear Cart
     </button>
         <button
-          className="buy"
-        >
-          Buy  
+          className="buy" 
+        ><a onClick={()=>navigate("/checkout")} style={{fontSize: 14}}  underline="hover">Checkout</a>
+          
         </button></div>
       ) : (
         <div className="hurry">
