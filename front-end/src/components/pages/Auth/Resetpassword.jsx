@@ -30,7 +30,7 @@ const ResetPassword=()=>{
           setServerError({})
           setServerMsg(res.data)
           setTimeout(() => {
-            navigate("/dashboard")
+            navigate("/dash")
           }, 3000)
         }
     

@@ -20,9 +20,10 @@ const Products = () => {
   
   return (
     <>
-      <Box justifyContent="center" sx={{ mx: 3, px: 5, py: 2 }}>
+      <Box justifyContent="center" sx={{ ml: 4  }}>
         <Grid
           container
+          
           spacing={{ border: 1, xs: 2, md: 3 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
@@ -30,7 +31,7 @@ const Products = () => {
             <Card
               style={{ backgroundColor: "#EEF2E6" }}
               key={product.id}
-              sx={{ width: 300, mx: 2, my: 2 }}
+              sx={{ maxWidth: 300,my:1  }}
             >
               <img
                 alt={product.title}
@@ -52,17 +53,22 @@ const Products = () => {
                   Price: Rs. {product.price}
                 </Typography>
               </CardContent>
-              <CardActions>
-                <Button onClick={() => 
+              <Box>
+              <CardActions   >
+                <Button   style={{ width: "100%", height:"40px" 
+                  }} onClick={() => 
     dispatch(addToCart(
       product
-    )) }size="small" variant="contained">
+    )) }  sx={{ fontSize: 15,backgroundColor:"#FB8C00"}} color="warning" variant="contained" >
                   Add to cart
                 </Button>
-                <Button size="small" variant="contained">
+                <Button style={{ width: "100%",
+                 height:"40px" }}               
+                 sx={{ fontSize: 18,backgroundColor:"#EF6C00"}} color="warning" variant="contained">
                   Buy
                 </Button>
               </CardActions>
+              </Box>
             </Card>
           ))}
         </Grid>

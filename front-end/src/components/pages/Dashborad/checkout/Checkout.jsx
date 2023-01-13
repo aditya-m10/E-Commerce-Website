@@ -10,27 +10,96 @@ import {
   Typography,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import DashNav from "../Auth/DashNav";
 import RemoveIcon from "@mui/icons-material/Remove";
 import {
   increment,
   decrement,
-  clear,
   removeItem,
-} from "../../../features/cartSlice";
-import { cartTotalPriceSelector } from "../../../features/selectors";
+} from "../../../../features/cartSlice";
+import { cartTotalPriceSelector } from "../../../../features/selectors";
 import { useDispatch, useSelector } from "react-redux";
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import Success from "./Success";
+
+
+function loadScript(src) {
+	return new Promise((resolve) => {
+		const script = document.createElement('script')
+		script.src = src
+		script.onload = () => {
+			resolve(true)
+		}
+		script.onerror = () => {
+			resolve(false)
+		}
+		document.body.appendChild(script)
+	})
+}
 
 const Checkout = () => {
+  const[success,setSuccess]=useState(false)
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const totalPrice = useSelector(cartTotalPriceSelector);
+  const navigate=useNavigate()
+  const   displayRazorpay=async ()=> {
+	  const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js')
+
+		if (!res) {
+			alert('Failure loading the Razorpay SDK. PLease make sure you are connected to the internet')
+			return
+		}
+    
+    const orderData = await axios.post('http://127.0.0.1:8000/createOrder/', {
+      amount: totalPrice
+    })
+
+    const { amount, currency, order_id } = orderData.data
+
+    
+		const options = {
+            key: "rzp_test_KQscCDa5awdxAm", // Enter the Key ID generated from the Dashboard
+            amount: amount.toString(),
+            currency: currency,
+            name: "Aadinath Sales",
+            description: "Test Transaction",
+            order_id: order_id,
+            
+            handler: async function (response) {
+                const razorpay_paymentId = response.razorpay_payment_id
+                const razorpay_orderId = response.razorpay_order_id
+                const razorpay_signature = response.razorpay_signature
+
+                var res = await axios.post('http://127.0.0.1:8000/verifySignature/', {
+                  razorpay_paymentId,
+                  razorpay_orderId,
+                  razorpay_signature
+                })
+                setSuccess(true)
+                let order=JSON.parse(res.config.data)
+                var OID=order.razorpay_orderId
+                var success=res.data.status
+                const data={OID:OID,success:success}
+                localStorage.setItem("orderData",JSON.stringify(data))
+                setTimeout(()=>navigate("/"),4000) 
+            },
+            prefill: {
+                name: "John Doe",
+                email: "doejon@example.com",
+                contact: "9999999999",
+            },
+            
+        };
+		const paymentObject = new window.Razorpay(options)
+		paymentObject.open()
+	}
   return (
     <>
-      <DashNav />
       <Box sx={{ my: 5, mx: 10 }}>
-        <Grid container rowSpacing={1} columnSpacing={1} sx={{ width: "100%" }}>
-          <Grid xs={12} md={8} p={1}>
+        {success ? <Success />: <Grid container rowSpacing={1} columnSpacing={1} sx={{ width: "100%" }}>
+           <Grid xs={12} md={8} p={1}>
             {cart.map((item) => (
               <Card
                 key={item.id}
@@ -80,29 +149,43 @@ const Checkout = () => {
                       justifyContent: { xs: "space-between", sm: "flex-start" },
                     }}
                   >
-                    <IconButton onClick={() => {
+                    <IconButton
+                      onClick={() => {
                         dispatch(increment(item.id));
-                      }} >
-                    <AddIcon                    
-                    />
+                      }}
+                    >
+                      <AddIcon />
                     </IconButton>
-                    <Button sx={{fontWeight:600,fontSize: 18,}}>{item.quantity}</Button>
-                    <IconButton disabled={item.quantity === 1}
+                    <Button sx={{ fontWeight: 600, fontSize: 18 }}>
+                      {item.quantity}
+                    </Button>
+                    <IconButton
+                      disabled={item.quantity === 1}
                       onClick={() => {
                         dispatch(decrement(item.id));
-                      }} >
-                    <RemoveIcon/>
-                      
+                      }}
+                    >
+                      <RemoveIcon />
                     </IconButton>
-                    
-                    
-                    
+                    <Button
+                      onClick={() => {
+                        dispatch(removeItem(item.id));
+                      }}
+                    >
+                      <Typography sx={{ color: "red" }}>Remove</Typography>
+                    </Button>
                   </Stack>
                 </Box>
               </Card>
             ))}
           </Grid>
-          <Grid xs={12} md={4} p={2} sx={{ backgroundColor: "whitesmoke" }}>
+          <Grid
+            xs={12}
+            md={4}
+            p={2}
+            style={{ height: "400px" }}
+            sx={{ backgroundColor: "whitesmoke" }}
+          >
             <Box>
               <Button
                 style={{
@@ -114,7 +197,7 @@ const Checkout = () => {
                 color="success"
                 variant="contained"
               >
-                <Typography sx={{ fontSize: 25, position: "float" }}>
+                <Typography  onClick={displayRazorpay} sx={{ fontSize: 25, position: "float" }}>
                   Place Order
                 </Typography>
               </Button>
@@ -175,13 +258,14 @@ const Checkout = () => {
               </Typography>
               <Box>
                 <Typography sx={{ fontWeight: 600, fontSize: 20 }}>
-                  Rs. {totalPrice}
+                {totalPrice > 0 &&  <a>Rs. {totalPrice}</a>}
+
                 </Typography>
               </Box>
             </Box>
             <hr />
           </Grid>
-        </Grid>
+        </Grid>}
       </Box>
     </>
   );

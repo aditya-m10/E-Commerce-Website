@@ -8,8 +8,10 @@ import ResetPassword from './pages/Auth/Resetpassword';
 import { useSelector } from "react-redux";
 import ResetmailPassword from './pages/Auth/Mailreset';
 import Footer from './pages/home/Footer';
-import Checkout from './pages/checkout/Checkout';
-
+import Checkout from './pages/Dashborad/checkout/Checkout';
+import Success from './pages/Dashborad/checkout/Success';
+import Dashlayout from "./Dashlayout"
+import Profile from './pages/Dashborad/Profile/Profile';
 function App() {
   const { access_token } = useSelector(state => state.auth)
 
@@ -20,17 +22,29 @@ function App() {
         <Route  path="/" element={<Layout/>} >
           <Route index element={<Home />} />
           <Route path="contact" element={<Contact />} />
-          <Route path="reslogin" element={!access_token ? <ResLogin /> : <Navigate to="/checkout" />} />
+          <Route path="reslogin" element={!access_token ? <ResLogin /> : <Navigate to="/dash/checkout" />} />
           <Route path="footer" element={<Footer />} />
 
 
 
         </Route>
-        <Route path="checkout" element={<Checkout />} />
-        <Route path="reset" element={access_token ?<ResetPassword /> : <Navigate to="/reslogin" />} />
+         
+        <Route  path="/dash" element={<Dashlayout/>} >
+           <Route index element={< Profile/>} />
+           <Route path="checkout" element={< Checkout/>} />
+           <Route path="reset" element={<ResetPassword /> } />
+
+
+        </Route>
+        <Route path="success" element={<Success />} />
+
+        {/* <Route path="checkout" element={<Checkout />} /> */}
+
+        
+
         <Route path="api/user/reset/:id/:token" element={<ResetmailPassword />} />
 
-{/* {        <Route path="dashboard" element={access_token ? <D /> : <Navigate to="/reslogin" />} /> */}
+{/* {        <Route path="dashboard" element={access_token ? /> : <Navigate to="/reslogin" />} /> */}
         <Route path="*" element={<h1>Error 404 </h1>} />
 
 

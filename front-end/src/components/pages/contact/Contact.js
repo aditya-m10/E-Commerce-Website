@@ -32,7 +32,7 @@ const Contact = () => {
   return (
     <ThemeProvider theme={theme}>
 
-    <Grid container justifyContent="center" sx={{mt:10}}>
+    <Grid container justifyContent="center" sx={{my:10}}>
 
       <Box    ref={form}  onSubmit={sendEmail} component='form' noValidate sx={{ mt: 1}} id='message-form'>
       Email:

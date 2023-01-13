@@ -21,7 +21,7 @@ const DashNav = () => {
     dispatch(unSetUserToken({ access_token: null }))
     removeToken()
    
-    navigate("/checkout")
+    navigate("/reslogin")
   
     
   }
@@ -51,14 +51,13 @@ const DashNav = () => {
 
   return (
     <>
-    <CssBaseline />
     <ThemeProvider theme={theme}>
 
     <Box sx={{flexGrow:1}}>
     <AppBar style={{ backgroundColor: 'white', boxShadow: 3}} position='static' color="primary" >
         <Toolbar variant="dense"  >
-            <Typography variant='h5'sx={{color:"green",flexGrow:1,fontWeight: 'bold'}}  >
-                AADINAATH<span style={{fontSize:12}} > Sales</span>
+            <Typography  variant='h5'sx={{color:"green",flexGrow:1,fontWeight: 'bold'}}  >
+            <a style={{cursor: 'pointer'}} onClick={()=>navigate("/")}>AADINAATH<span style={{ fontSize: 12, mx: 5 }}> Sales</span></a>
             </Typography>
             {access_token?
             <>
@@ -70,7 +69,7 @@ const DashNav = () => {
               LogOut
               </Button>
               <Box sx={{mx:2 }} >
-            <Link  component={NavLink} to="/reset" style={{fontSize: 14}}  underline="hover">Change password </Link>
+            <Link  component={NavLink} to="/dash/reset" style={{fontSize: 14}}  underline="hover">Change password </Link>
             </Box></> : <Button   onClick={()=>navigate("/reslogin")}variant="contained" style={{color:"white",  fontSize: 12,borderRadius: 5}}>
               Login
               </Button>}

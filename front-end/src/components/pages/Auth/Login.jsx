@@ -11,7 +11,7 @@ const Login = () => {
   };
   return (
     <>
-      <Box sx={{ mt: 2, mx: 5 }}>
+      <Box sx={{ mb: 5, mx: 5 }}>
         <Authlogin />
         <Typography variant="body1" sx={{ mx: 5 }}>
           Don't have account?

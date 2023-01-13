@@ -9,7 +9,6 @@ function Media() {
   return (<>
   <Slideroffers />
   <Products />
-  <Footer/>
     </>
   );
 }

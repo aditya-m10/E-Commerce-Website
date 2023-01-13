@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from "react";
 import { AppBar, Box, Toolbar, Typography, Button } from "@mui/material";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./Theme";
 import { getToken } from "../services/LocalStorage";
@@ -10,7 +10,7 @@ import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { cartTotalSelector } from "../features/selectors";
 
 
@@ -26,8 +26,9 @@ const Navbar = () => {
   const { access_token } = getToken();
   const [toggle, setToggle] = useState(false);
   const total = useSelector(cartTotalSelector);
-  const dispatch = useDispatch();
   const [change, setChange] = useState(false);
+  const navigate=useNavigate();
+
 
   useEffect(() => {
     if (total !== 0) {
@@ -50,11 +51,11 @@ const Navbar = () => {
             color="primary"
           >
             <Toolbar variant="dense">
-              <Typography
+              <Typography 
                 variant="h5"
                 sx={{ color: "green", flexGrow: 1, fontWeight: "bold" }}
               >
-                AADINAATH<span style={{ fontSize: 12, mx: 5 }}> Sales</span>
+                <a style={{cursor: 'pointer'}}  onClick={()=>navigate("/")}>AADINAATH<span style={{ fontSize: 12, mx: 5 }}> Sales</span></a>
               </Typography>
               <Button
                 component={NavLink}
@@ -80,7 +81,7 @@ const Navbar = () => {
               {access_token ? (
                 <Button
                   component={NavLink}
-                  to="/dashboard"
+                  to="/dash"
                   style={({ isActive }) => {
                     return { textDecoration: isActive ? "underline" : "" };
                   }}

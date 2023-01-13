@@ -49,7 +49,7 @@ const Authlogin=()=>{
         storeToken(res.data.token)
         let { access_token } = getToken()
         dispatch(setUserToken({ access_token: access_token }))
-        navigate('/checkout')
+        navigate('/dash/checkout')
         }
     }    
     let { access_token } = getToken()
