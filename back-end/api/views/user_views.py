@@ -7,7 +7,6 @@ from django.contrib.auth import authenticate
 from api.renderers import UserRenderer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
-from django.shortcuts import redirect
 from rest_framework.decorators import api_view
 import razorpay
 
@@ -93,7 +92,7 @@ def createOrder(request):
 
     amount = int(float(data['amount']))
 
-    client = razorpay.Client(auth=("", ""))
+    client = razorpay.Client(auth=("rzp_test_KQscCDa5awdxAm", "pE2SyV35xwvPKTn3CfRmXslZ"))
 
     data = {"amount" : amount, "currency" : "INR"}
     payment = client.order.create(data=data)

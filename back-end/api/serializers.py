@@ -1,6 +1,6 @@
 from lib2to3.pgen2 import token
 from rest_framework import serializers
-from api.models import User
+from api.models import *
 from django.utils.encoding import smart_str, force_bytes, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
@@ -115,3 +115,8 @@ class MailPasswordUpdateSerializer(serializers.Serializer):
         except DjangoUnicodeDecodeError as e:
             PasswordResetTokenGenerator().check_token(user, token)
             raise serializers.ValidationError('Token is not valid or expired')
+        
+class ProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product 
+        fields = '__all__'

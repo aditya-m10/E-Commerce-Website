@@ -1,8 +1,8 @@
 
 from django.contrib import admin
 from django.urls import path,include
-from api.views import RegistrationView,LoginView,ProfileView,ChangePassword,PasswordResetEmail,MailPasswordUpdate
-from . import views
+from api.views.user_views import RegistrationView,LoginView,ProfileView,ChangePassword,PasswordResetEmail,MailPasswordUpdate
+from api.views import user_views as views
 
 urlpatterns = [
     path('register/', RegistrationView.as_view(),name='resgister'),
