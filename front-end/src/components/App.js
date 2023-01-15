@@ -12,6 +12,7 @@ import Checkout from './pages/Dashborad/checkout/Checkout';
 import Success from './pages/Dashborad/checkout/Success';
 import Dashlayout from "./Dashlayout"
 import Profile from './pages/Dashborad/Profile/Profile';
+import AddProduct from './pages/Dashborad/Addproduct/Addproduct';
 function App() {
   const { access_token } = useSelector(state => state.auth)
 
@@ -33,6 +34,7 @@ function App() {
            <Route index element={< Profile/>} />
            <Route path="checkout" element={< Checkout/>} />
            <Route path="reset" element={<ResetPassword /> } />
+           <Route path="addproduct" element={<AddProduct /> } />
 
 
         </Route>

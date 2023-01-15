@@ -41,6 +41,7 @@ const Authlogin=()=>{
             email: data.get('email'),
             password: data.get('password'),
         }
+      console.log(data)
       const res = await loginUser(actualData)
       if (res.error) {
         setServerError(res.error.data.errors)

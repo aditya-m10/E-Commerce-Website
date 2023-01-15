@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { useDispatch } from 'react-redux';
 import {addToCart} from '../../../features/cartSlice';
-
+import "./styles/product.css"
 
 
 const Products = () => {
@@ -23,12 +23,12 @@ const Products = () => {
       <Box justifyContent="center" sx={{ ml: 4  }}>
         <Grid
           container
-          
+          sx={{color:"whitesmoke"}}
           spacing={{ border: 1, xs: 2, md: 3 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
           {products.map((product) => (
-            <Card
+            <div className="zoom-card"><Card
               style={{ backgroundColor: "#EEF2E6" }}
               key={product.id}
               sx={{ maxWidth: 300,my:1  }}
@@ -69,7 +69,7 @@ const Products = () => {
                 </Button>
               </CardActions>
               </Box>
-            </Card>
+            </Card></div>
           ))}
         </Grid>
       </Box>
