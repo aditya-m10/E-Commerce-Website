@@ -1,6 +1,5 @@
-.zoom-card {
-    transition: all 0.3s ease 0s;
-  }
 .zoom-card:hover{
+    transition: all 0.3s ease 0s;
     transform: scale(1.05); 
+    box-shadow: 20px 20px 200px rgba(10, 10, 10, 0.2);
 }

@@ -1,5 +1,6 @@
 import React from "react";
-import products from "../../../data/Data";
+import { useEffect,useState  } from "react";
+
 import {
   Button,
   Card,
@@ -12,32 +13,48 @@ import {
 import { useDispatch } from 'react-redux';
 import {addToCart} from '../../../features/cartSlice';
 import "./styles/product.css"
+import axios from "axios";
 
 
 const Products = () => {
+  const [data,setData]=useState([])
   const dispatch = useDispatch()
-
+  useEffect(()=>{getProduct()},[])
   
+  const getProduct=async ()=>{
+    await axios({
+    method: 'GET',
+    
+    url:'http://localhost:8000/api/product/',
+  
+  }).then(response=>{
+    setData(response.data)
+    
+  })
+}
+console.log(data)
+
+
   return (
     <>
-      <Box justifyContent="center" sx={{ ml: 4  }}>
+      <Box justifyContent="center" sx={{ ml: 4 }}>
         <Grid
           container
           sx={{color:"whitesmoke"}}
           spacing={{ border: 1, xs: 2, md: 3 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
-          {products.map((product) => (
-            <div className="zoom-card"><Card
+          {data.map((product) => (
+           <Card className="zoom-card"
               style={{ backgroundColor: "#EEF2E6" }}
-              key={product.id}
-              sx={{ maxWidth: 300,my:1  }}
+              key={product._id}
+              sx={{ maxWidth: 300,my:2,  }}
             >
               <img
-                alt={product.title}
+                alt={product.product_name}
                 height="300"
-                width="auto"
-                src={product.cover}
+                width="300"
+                src={`http://localhost:8000${product.image}`}
               />
 
               <CardContent>
@@ -46,7 +63,7 @@ const Products = () => {
                   variant="body1"
                   component="div"
                 >
-                  {product.title}
+                  {product.product_name}
                 </Typography>
 
                 <Typography variant="body2" color="text.secondary">
@@ -69,7 +86,7 @@ const Products = () => {
                 </Button>
               </CardActions>
               </Box>
-            </Card></div>
+            </Card>
           ))}
         </Grid>
       </Box>

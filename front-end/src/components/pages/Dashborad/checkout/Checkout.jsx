@@ -62,7 +62,7 @@ const Checkout = () => {
     const { amount, currency, order_id } = orderData.data;
 
     const options = {
-      key: "rzp_test_KQscCDa5awdxAm", // Enter the Key ID generated from the Dashboard
+      key: "", // Enter the Key ID generated from the Dashboard
       amount: amount.toString(),
       currency: currency,
       name: "Aadinath Sales",
