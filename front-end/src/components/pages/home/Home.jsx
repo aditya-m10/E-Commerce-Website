@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import Slideroffers from './Slideroffers';
-import Products from './ProductList';
+// import Products from './ProductList';
 import { Box } from '@mui/material';
 
 function Media() {
@@ -9,7 +9,6 @@ function Media() {
   return (<>
   <Box sx={{color:"whitesmoke"}}>
   <Slideroffers />
-  <Products />
   </Box></>
   );
 }

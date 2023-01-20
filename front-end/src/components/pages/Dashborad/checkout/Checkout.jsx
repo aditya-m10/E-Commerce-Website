@@ -22,6 +22,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Success from "./Success";
+import { getToken } from '../../../../services/LocalStorage';
 
 function loadScript(src) {
   return new Promise((resolve) => {
@@ -38,6 +39,8 @@ function loadScript(src) {
 }
 
 const Checkout = () => {
+  const { access_token } = getToken()
+  console.log(access_token)
   const [success, setSuccess] = useState(false);
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -55,14 +58,17 @@ const Checkout = () => {
       return;
     }
 
-    const orderData = await axios.post("http://127.0.0.1:8000/api/user/createOrder/", {
+    const orderData = await axios.post("http://127.0.0.1:8000/api/order/createOrder/", {
       amount: totalPrice,
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
     });
 
     const { amount, currency, order_id } = orderData.data;
 
     const options = {
-      key: "", // Enter the Key ID generated from the Dashboard
+      key: process.env.KEY_ID, // Enter the Key ID generated from the Dashboard
       amount: amount.toString(),
       currency: currency,
       name: "Aadinath Sales",
@@ -74,10 +80,13 @@ const Checkout = () => {
         const razorpay_orderId = response.razorpay_order_id;
         const razorpay_signature = response.razorpay_signature;
 
-        var res = await axios.post("http://127.0.0.1:8000/api/user/verifySignature/", {
+        var res = await axios.post("http://127.0.0.1:8000/api/order/verifySignature/", {
           razorpay_paymentId,
           razorpay_orderId,
           razorpay_signature,
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
         });
         setSuccess(true);
         let order = JSON.parse(res.config.data);
@@ -124,7 +133,7 @@ const Checkout = () => {
                     width="124"
                     height="124"
                     alt="Beside Myself album cover"
-                    src={item.cover}
+                    src={`http://localhost:8000${item.image}`}
                     sx={{
                       borderRadius: 0.5,
                       width: "clamp(124px, (304px - 100%) * 999 , 100%)",
@@ -140,7 +149,7 @@ const Checkout = () => {
                         mt: { xs: 1.5, sm: 0 },
                       }}
                     >
-                      {item.title}
+                      {item.product_name}
                     </Typography>
                     <Typography
                       component="div"

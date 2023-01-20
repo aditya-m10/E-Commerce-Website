@@ -1,8 +1,8 @@
 import React, { useState,useEffect } from "react";
-import { AppBar, Box, Toolbar, Typography, Button } from "@mui/material";
+import { AppBar, Box, Toolbar, Typography, Button, useMediaQuery,
+  useTheme, } from "@mui/material";
 import { NavLink, useNavigate } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
-import theme from "./Theme";
 import { getToken } from "../services/LocalStorage";
 import Sidebar from "./pages/cart/Cart";
 import "./pages/cart/cart.css";
@@ -12,7 +12,7 @@ import IconButton from "@mui/material/IconButton";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {  useSelector } from "react-redux";
 import { cartTotalSelector } from "../features/selectors";
-
+import DrawerComp from "./pages/home/Drawer";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -23,6 +23,9 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 const Navbar = () => {
+  const theme = useTheme();
+  const isMatch = useMediaQuery(theme.breakpoints.down("md"));
+
   const { access_token } = getToken();
   const [toggle, setToggle] = useState(false);
   const total = useSelector(cartTotalSelector);
@@ -57,7 +60,11 @@ const Navbar = () => {
               >
                 <a style={{cursor: 'pointer'}}  onClick={()=>navigate("/")}>AADINAATH<span style={{ fontSize: 12, mx: 5 }}> Sales</span></a>
               </Typography>
-              <Button
+              {isMatch ? (
+            <>
+              <DrawerComp />
+            </>
+          ) : (<><Button
                 component={NavLink}
                 to="/"
                 style={({ isActive }) => {
@@ -101,7 +108,7 @@ const Navbar = () => {
                 >
                   Login/Registration
                 </Button>
-              )}
+              )}</>)}
               <IconButton
                 onClick={()=>setToggle(!toggle)}
                 sx={{ color: "green", textTransform: "none" }}

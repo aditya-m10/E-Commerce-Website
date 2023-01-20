@@ -1,5 +1,50 @@
+.carousel-inner{
+    margin-block: 5px;
+}
+
 .zoom-card:hover{
     transition: all 0.3s ease 0s;
     transform: scale(1.05); 
     box-shadow: 20px 20px 200px rgba(10, 10, 10, 0.2);
 }
+.offers {
+    margin-top: 10px;
+    display: block;
+}
+.offers img:hover{
+    transition: all 0.3s ease 0s;
+    transform: scale(1.05); 
+    box-shadow: 20px 20px 200px rgba(10, 10, 10, 0.2);
+}
+.offers1 {
+    display: inline-flex;
+    margin-left: 1px;
+    
+}
+.offers1 img{
+    padding: 2px;
+    width:379px;
+    height: 350px;
+
+
+}
+.offers2 {
+    display: inline-flex;
+
+}
+.offers2 img{
+    padding: 5px;
+    max-width:507px;
+    max-height: 260px;
+
+
+}
+@media only screen and (max-width: 768px) {
+    /* For desktop: */
+    .offers1 img{
+        padding: 5px;
+        height: 500px;
+        width: 490px;
+    
+    }
+  }

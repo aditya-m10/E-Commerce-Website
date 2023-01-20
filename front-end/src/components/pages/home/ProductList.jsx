@@ -37,7 +37,7 @@ console.log(data)
 
   return (
     <>
-      <Box justifyContent="center" sx={{ ml: 4 }}>
+      <Box justifyContent="center" sx={{ ml: 4,mt:10 }}>
         <Grid
           container
           sx={{color:"whitesmoke"}}
@@ -47,7 +47,7 @@ console.log(data)
           {data.map((product) => (
            <Card className="zoom-card"
               style={{ backgroundColor: "#EEF2E6" }}
-              key={product._id}
+              key={product.id}
               sx={{ maxWidth: 300,my:2,  }}
             >
               <img

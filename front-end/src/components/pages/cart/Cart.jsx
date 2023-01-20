@@ -71,7 +71,7 @@ const Sidebar = ({ close }) => {
                   width="124"
                   height="124"
                   alt="Beside Myself album cover"
-                  src={item.cover}
+                  src={`http://localhost:8000${item.image}`}
                   sx={{
                     borderRadius: 0.5,
                     width: "clamp(124px, (304px - 100%) * 999 , 100%)",
@@ -87,7 +87,7 @@ const Sidebar = ({ close }) => {
                       mt: { xs: 1.5, sm: 0 },
                     }}
                   >
-                    {item.title}
+                    {item.product_name}
                   </Typography>
                   <Typography
                     component="div"

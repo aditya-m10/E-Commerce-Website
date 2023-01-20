@@ -12,7 +12,10 @@ import Checkout from './pages/Dashborad/checkout/Checkout';
 import Success from './pages/Dashborad/checkout/Success';
 import Dashlayout from "./Dashlayout"
 import Profile from './pages/Dashborad/Profile/Profile';
-import AddProduct from './pages/Dashborad/Addproduct/Addproduct';
+import Ownproduct from './pages/Dashborad/myproduct/Ownproduct';
+import Products from './pages/home/ProductList';
+
+
 function App() {
   const { access_token } = useSelector(state => state.auth)
 
@@ -25,16 +28,17 @@ function App() {
           <Route path="contact" element={<Contact />} />
           <Route path="reslogin" element={!access_token ? <ResLogin /> : <Navigate to="/dash/checkout" />} />
           <Route path="footer" element={<Footer />} />
+          <Route path="product" element={<Products />} />
 
 
 
         </Route>
          
-        <Route  path="/dash" element={<Dashlayout/>} >
+        <Route  path="/dash" element={access_token? <Dashlayout/>: <Navigate to="/reslogin" />} >
            <Route index element={< Profile/>} />
            <Route path="checkout" element={< Checkout/>} />
            <Route path="reset" element={<ResetPassword /> } />
-           <Route path="addproduct" element={<AddProduct /> } />
+           <Route path="addproduct" element={<Ownproduct /> } />
 
 
         </Route>
