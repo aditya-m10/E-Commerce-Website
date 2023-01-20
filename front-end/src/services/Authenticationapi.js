@@ -6,7 +6,7 @@ export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'http://127.0.0.1:8000/api/user/' }),
   endpoints: (builder) => ({
-    registerUser: builder.mutation({
+      registerUser: builder.mutation({
       query: (user) => {
         return {
             url:'register/',
