@@ -6,12 +6,6 @@ urlpatterns = [
     path('',views.getProducts,name="products"),
 
     path('create/',views.createProduct,name="create_product"),
-    #path('upload/',views.uploadImage,name="upload_image"),
-
-    #path('<str:pk>/reviews/',views.createProductReview,name="create-review"),
-    #path('top/',views.getTopProducts,name="top-products"),
-    #path('<str:pk>/',views.getProduct,name="product"),
-
-    #path('update/<str:pk>/',views.updateProduct,name="update_product"),
-    #path('delete/<str:pk>/',views.deleteProduct,name="delete_product"),
+    path('category/',views.categoryProduct,name="category products"),
+    path('myproduct/',views.myProduct,name="my product"),
 ]

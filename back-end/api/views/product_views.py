@@ -1,16 +1,9 @@
 # Django Import
-from django.shortcuts import render
 import json
-
-from rest_framework import status
-
-
 # Rest Framework Import
-from rest_framework.decorators import api_view, permission_classes,renderer_classes
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.serializers import Serializer
-from base64 import b64encode
 
 # Local Import
 from api.models import *
@@ -46,28 +39,20 @@ def createProduct(request):
 
 
 
+@api_view(['GET'])
+def categoryProduct(request ):
+    category=request.data["category"]
+    products = Product.objects.filter(category=category)
+    serializer = ProductSerializer(products, many=True)
+    return Response(serializer.data)
 
-
-
-
-# Create a new Product
-# @api_view(['POST'])
-# @permission_classes([IsAdminUser])
-# def createProduct(request):
-
-#     user = request.user
-#     product = Product.objects.create(
-#         user=user,
-#         name=" Product Name ",
-#         price=0,
-#         brand="Sample brand ",
-#         countInStock=0,
-#         category="Sample category",
-#         description=" "
-#     )
-
-#     serializer = ProductSerializer(product, many=False)
-#     return Response(serializer.data)
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def myProduct(request ):
+    user=request.user
+    products = Product.objects.filter(user=user)
+    serializer = ProductSerializer(products, many=True)
+    return Response(serializer.data)
 
 
 

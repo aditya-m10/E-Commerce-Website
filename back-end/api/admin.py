@@ -29,4 +29,10 @@ class UserModelAdmin(BaseUserAdmin):
 
 # Now register the new UserAdmin...
 admin.site.register(User, UserModelAdmin)
-admin.site.register(Product)
+@admin.register(Product)
+class  ProductAdmin(admin.ModelAdmin):
+    list_display=Product.DisplayFields
+@admin.register(Order)
+class  OrderAdmin(admin.ModelAdmin):
+    list_display=Order.DisplayFields
+    

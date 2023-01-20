@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from  datetime import timedelta,datetime
 
 class UserManager(BaseUserManager):
     def create_user(self, email, name, tc ,password=None,password2=None):
@@ -84,7 +85,22 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=12,decimal_places=2,null=True,blank=True)
     countInStock = models.IntegerField(null=True,blank=True,default=0)
     createdAt = models.DateTimeField(auto_now_add=True)
-    _id = models.AutoField(primary_key=True,editable=False)
+    id = models.AutoField(primary_key=True,editable=False)
 
-    def __str__(self):
-        return self.product_name +" | "+self.brand +" | " + str(self.price) +"|"+str(self._id)
+    DisplayFields=["product_name","brand","category","price","countInStock"]
+
+
+class Order(models.Model):
+    user = models.ForeignKey(User,on_delete=models.SET_NULL,null=True,blank=False)
+    products=models.ManyToManyField(Product)
+    order_id = models.CharField(max_length=200,blank=False)
+    totalPrice = models.DecimalField(max_digits=12,decimal_places=2,null=True,blank=True)
+    shipping_Address = models.CharField(max_length=200,blank=False)
+    delivery = models.DateField(default=datetime.now()+timedelta(days=7))
+    _id =  models.AutoField(primary_key=True,editable=False)
+    DisplayFields=["product","order_id","totalPrice","delivery"]
+    def product(self):
+        return ",".join([str(p) for p in self.products.all()])
+    
+    
+    
