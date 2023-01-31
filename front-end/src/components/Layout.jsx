@@ -7,6 +7,7 @@ const Layout =()=>{
     return <>
     <CssBaseline />
         <Navbar />  
+
         <Outlet />
         <Footer />
     </>

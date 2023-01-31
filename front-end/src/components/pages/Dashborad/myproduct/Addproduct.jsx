@@ -1,8 +1,9 @@
 import {   TextField ,Button, Typography,} from "@mui/material";
 import { Box } from "@mui/system";
 import {  useState } from "react";
-import axios from "axios";
 import { getToken } from '../../../../services/LocalStorage';
+import { useAddProductMutation } from "../../../../services/ProductApi";
+import { useNavigate } from "react-router-dom";
 export default function AddProduct() {
   const { access_token } = getToken()
   const [image, setImage] = useState(null);
@@ -14,6 +15,8 @@ export default function AddProduct() {
     const [price, setPrice] = useState(null)
     const [stock, setStock] = useState(null)
     const [description, setDescription] = useState(null)
+    const [addProduct] = useAddProductMutation();
+    const navigate=useNavigate()
 
     const addNewProduct = async () => {
  
@@ -30,17 +33,19 @@ export default function AddProduct() {
         if(image !== null) {
           formField.append('image', image)
         }
-        await axios({
-          method: 'post',
+        console.log("hi")
+        let res =await  addProduct({formField,access_token})
+        console.log(res)
+        if(res.data.error){
           
-          url:'http://localhost:8000/api/product/create/',
-          data: formField,
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-          },
-        }).then(response=>{
-          console.log(response.data);
-        })
+          alert("hi")
+        }
+        else{
+          alert(res.data.msg)
+          // navigate('/dash/checkout')
+
+        }
+        
     }
   return (
     <Box  >

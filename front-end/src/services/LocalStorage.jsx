@@ -1,13 +1,24 @@
 const storeToken = (value)=>{
     if (value){
-           console.log(value)
            const {access,refresh}=value
            localStorage.setItem('access_token', access)
            localStorage.setItem('refresh_token', refresh)
 
 }
 }
-
+// const storeProduct = (product)=>{
+//   console.log(product)
+//   if (product){
+//          localStorage.setItem('product', product)
+// }
+// }
+// const getProduct = () => {
+//   let product = localStorage.getItem('product')
+//   return {product} 
+// }
+// const removeProduct = () => {
+//   localStorage.removeItem('product')
+// }
 const getToken = () => {
     let access_token = localStorage.getItem('access_token')
     let refresh_token = localStorage.getItem('refresh_token')

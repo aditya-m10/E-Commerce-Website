@@ -1,5 +1,4 @@
 import React from "react";
-import { useEffect,useState  } from "react";
 
 import {
   Button,
@@ -10,41 +9,32 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {addToCart} from '../../../features/cartSlice';
 import "./styles/product.css"
-import axios from "axios";
+import Category from "./Category";
+
 
 
 const Products = () => {
-  const [data,setData]=useState([])
+  const product = useSelector((state) => state.product);
+  console.log("product",product)
   const dispatch = useDispatch()
-  useEffect(()=>{getProduct()},[])
   
-  const getProduct=async ()=>{
-    await axios({
-    method: 'GET',
-    
-    url:'http://localhost:8000/api/product/',
   
-  }).then(response=>{
-    setData(response.data)
-    
-  })
-}
-console.log(data)
-
 
   return (
     <>
-      <Box justifyContent="center" sx={{ ml: 4,mt:10 }}>
+       <Category/>
+
+      {product.length>0 ?<Box justifyContent="center" sx={{ ml: 4,mt:2 }}>
         <Grid
           container
           sx={{color:"whitesmoke"}}
           spacing={{ border: 1, xs: 2, md: 3 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
-          {data.map((product) => (
+          {product.map((product) => (
            <Card className="zoom-card"
               style={{ backgroundColor: "#EEF2E6" }}
               key={product.id}
@@ -89,7 +79,7 @@ console.log(data)
             </Card>
           ))}
         </Grid>
-      </Box>
+      </Box>:<><Box justifyContent="center" sx={{ ml: 4,my:10 }}><Typography align="center" sx={{fontSize:20,fontWeight:600}}>No Results Found</Typography></Box></>}
     </>
   );
 };

@@ -7,8 +7,8 @@ const Dashlayout =()=>{
     const { access_token } = getToken();
 
     return <>
-    {access_token? <><DashNav />
-    <Outlet/></>:<Navigate to="/reslogin" />}
+     <DashNav />
+     {access_token?<Outlet/>:<Navigate to="/reslogin" />}
     </>
 };
 

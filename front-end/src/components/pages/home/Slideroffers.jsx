@@ -8,7 +8,7 @@ const Slideroffers = () => {
 
   return (
     <div>
-       <Box   sx={{mt:7 ,color:"whitesmoke"}}>
+       <Box   sx={{mt:1 ,color:"whitesmoke"}}>
       <div  id="carouselExampleIndicators" className="carousel slide "  data-bs-ride="true">
 
 <div style={{ maxHeight: 280 }}  className="carousel-inner">

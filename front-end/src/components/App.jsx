@@ -29,9 +29,6 @@ function App() {
           <Route path="reslogin" element={!access_token ? <ResLogin /> : <Navigate to="/dash/checkout" />} />
           <Route path="footer" element={<Footer />} />
           <Route path="product" element={<Products />} />
-
-
-
         </Route>
          
         <Route  path="/dash" element={access_token? <Dashlayout/>: <Navigate to="/reslogin" />} >
@@ -39,21 +36,11 @@ function App() {
            <Route path="checkout" element={< Checkout/>} />
            <Route path="reset" element={<ResetPassword /> } />
            <Route path="addproduct" element={<Ownproduct /> } />
-
-
-        </Route>
-        <Route path="success" element={<Success />} />
-
-        {/* <Route path="checkout" element={<Checkout />} /> */}
-
+           <Route path="success" element={<Success />} />
+        </Route>    
         
-
         <Route path="api/user/reset/:id/:token" element={<ResetmailPassword />} />
-
-{/* {        <Route path="dashboard" element={access_token ? /> : <Navigate to="/reslogin" />} /> */}
         <Route path="*" element={<h1>Error 404 </h1>} />
-
-
       </Routes>
     </BrowserRouter>
 

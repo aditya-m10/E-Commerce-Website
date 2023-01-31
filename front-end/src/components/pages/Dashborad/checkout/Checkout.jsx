@@ -7,6 +7,7 @@ import {
   Grid,
   IconButton,
   Stack,
+  TextField,
   Typography,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
@@ -23,6 +24,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Success from "./Success";
 import { getToken } from '../../../../services/LocalStorage';
+import { useMakeOrderMutation } from "../../../../services/Orderapi";
 
 function loadScript(src) {
   return new Promise((resolve) => {
@@ -40,13 +42,18 @@ function loadScript(src) {
 
 const Checkout = () => {
   const { access_token } = getToken()
-  console.log(access_token)
   const [success, setSuccess] = useState(false);
+  const [address,setAddress]=useState("")
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const totalPrice = useSelector(cartTotalPriceSelector);
   const navigate = useNavigate();
+  
+  const [ makeOrder]=useMakeOrderMutation()
+
   const displayRazorpay = async () => {
+    console.log("acess checkout",access_token)
+
     const res = await loadScript(
       "https://checkout.razorpay.com/v1/checkout.js"
     );
@@ -64,7 +71,7 @@ const Checkout = () => {
         Authorization: `Bearer ${access_token}`,
       },
     });
-
+    
     const { amount, currency, order_id } = orderData.data;
 
     const options = {
@@ -84,17 +91,19 @@ const Checkout = () => {
           razorpay_paymentId,
           razorpay_orderId,
           razorpay_signature,
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-          },
         });
         setSuccess(true);
         let order = JSON.parse(res.config.data);
         var OID = order.razorpay_orderId;
         var success = res.data.status;
         const data = { OID: OID, success: success };
-        localStorage.setItem("orderData", JSON.stringify(data));
-        setTimeout(() => navigate("/"), 4000);
+        var actulData={cart,
+          razorpay_orderId,
+          totalPrice,
+          shipping_Address: address,};
+        makeOrder({ actulData, access_token })
+      localStorage.setItem("orderData", JSON.stringify(data));
+      setTimeout(() => navigate("/"), 4000)
       },
       prefill: {
         name: "John Doe",
@@ -109,6 +118,7 @@ const Checkout = () => {
     <>
       <Box sx={{ my: 5, mx: 10 }}>
         {success ? (
+
           <Success />
         ) : (
           <Grid
@@ -118,6 +128,19 @@ const Checkout = () => {
             sx={{ width: "100%" }}
           >
             <Grid xs={12} md={8} p={1}>
+            <Grid container
+            rowSpacing={1}
+            columnSpacing={1}
+            sx={{ width: "100%" }} >
+             <Grid>
+            <Typography sx={{mb:0.5,fontSize:20,fontWeight:600,fontFamily:"cursive",color:"green"}}>Shipping Address </Typography>
+            <TextField  variant="filled"   size="small"  color="success" sx ={{my:1}} label="Shipping Address"  required value={address} onChange={(e)=>setAddress(e.target.value)}></TextField>
+            </Grid> <Grid> 
+            <Typography sx={{mb:0.5,fontSize:20,fontWeight:600,fontFamily:"cursive",color:"green"}}>Phone Number </Typography>
+            <TextField  variant="filled"   size="small"  color="success" sx ={{my:1}} label="Phone Number"  required value={address} onChange={(e)=>setAddress(e.target.value)}></TextField>
+            </Grid></Grid> 
+            <Typography sx={{my:0.5,fontSize:20,fontWeight:600,fontFamily:"cursive",color:"green"}} >Cart Items  </Typography>
+
               {cart.map((item) => (
                 <Card
                   key={item.id}

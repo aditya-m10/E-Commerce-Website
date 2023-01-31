@@ -6,6 +6,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { getToken } from "../services/LocalStorage";
 import Sidebar from "./pages/cart/Cart";
 import "./pages/cart/cart.css";
+import "./App.css";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
@@ -13,7 +14,32 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import {  useSelector } from "react-redux";
 import { cartTotalSelector } from "../features/selectors";
 import DrawerComp from "./pages/home/Drawer";
+import { makeStyles } from "@material-ui/core/styles";
+import { ClassNames } from "@emotion/react";
 
+const useStyles = makeStyles({
+  title1: {
+    color:"#FF9F29",
+    fontSize:40,
+    fontFamily:"cursive",
+    fontWeight:600
+  },
+  title2: {
+    color:"#000000",
+    fontSize:40,
+    fontFamily:"cursive",
+    fontWeight:600
+  },
+  button:{
+    color:"#000000", 
+    fontSize:18, 
+    textTransform: "none" ,
+    fontWeight:600 ,
+    fontFamily:"cursive"
+  }
+  
+})
+ 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
     right: -3,
@@ -23,6 +49,8 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 const Navbar = () => {
+  const classes = useStyles();
+
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -48,29 +76,28 @@ const Navbar = () => {
       <ThemeProvider theme={theme}>
         <Box sx={{ flexGrow: 1 }} >
           <AppBar
-            style={{ backgroundColor: "#fff" }}
-            sx={{ boxShadow: 3 }}
+            style={{ backgroundColor: "#fff" ,height:"60px"}}
+           
             position= "fixed"
-            color="primary"
           >
             <Toolbar variant="dense">
-              <Typography 
-                variant="h5"
-                sx={{ color: "green", flexGrow: 1, fontWeight: "bold" }}
-              >
-                <a style={{cursor: 'pointer'}}  onClick={()=>navigate("/")}>AADINAATH<span style={{ fontSize: 12, mx: 5 }}> Sales</span></a>
-              </Typography>
+              <div className="navtitle"  >
+              
+              <Typography className={classes.title1} onClick={()=>navigate("/")} style={{cursor: 'pointer'}} variant="h5"   >Bargain </Typography>
+              <Typography className={classes.title2} onClick={()=>navigate("/")} style={{cursor: 'pointer'}}  variant="h5" >Kart</Typography>
+              </div>
               {isMatch ? (
             <>
               <DrawerComp />
             </>
-          ) : (<><Button
+          ) : (<div ><Button
                 component={NavLink}
                 to="/"
                 style={({ isActive }) => {
-                  return { textDecoration: isActive ? "underline" : "" };
+                  return { color: isActive ? "#FF9F29" : "" };
                 }}
-                sx={{ color: "green", textTransform: "none" }}
+                className={classes.button}                
+
                 end
               >
                 Home
@@ -79,9 +106,9 @@ const Navbar = () => {
                 component={NavLink}
                 to="/contact"
                 style={({ isActive }) => {
-                  return { textDecoration: isActive ? "underline" : "" };
+                  return { color: isActive ? "#FF9F29" : "" };
                 }}
-                sx={{ color: "green", textTransform: "none" }}
+                className={classes.button}                
               >
                 Contact
               </Button>
@@ -90,10 +117,9 @@ const Navbar = () => {
                   component={NavLink}
                   to="/dash"
                   style={({ isActive }) => {
-                    return { textDecoration: isActive ? "underline" : "" };
+                    return { color: isActive ? "#FF9F29" : "" };
                   }}
-                  sx={{ color: "green", textTransform: "none" }}
-                >
+                  className={classes.button}                >
                   Dashboard
                 </Button>
               ) : (
@@ -102,16 +128,16 @@ const Navbar = () => {
                   underline="hover"
                   to="/reslogin"
                   style={({ isActive }) => {
-                    return { textDecoration: isActive ? "underline" : "" };
+                    return { color: isActive ? "#FF9F29" : "" };
                   }}
-                  sx={{ color: "green", textTransform: "none" }}
+                  className={classes.button}                
                 >
                   Login/Registration
                 </Button>
-              )}</>)}
+              )}</div>)}
               <IconButton
                 onClick={()=>setToggle(!toggle)}
-                sx={{ color: "green", textTransform: "none" }}
+                sx={{ color:"#FF9F29", textTransform: "none" }}
                 aria-label="cart"
               >
                 <StyledBadge change={change} badgeContent={total} color="secondary">
@@ -123,7 +149,7 @@ const Navbar = () => {
           </AppBar>
         </Box>
       </ThemeProvider>
-    </>
+</>
   );
 };
 
